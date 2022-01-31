@@ -16,6 +16,7 @@ class App extends React.Component {
       rare: 'normal',
       trunfo: false,
       isDisabled: true,
+      hTrunfo: false,
       // cards: [],
     };
   }
@@ -67,53 +68,31 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    // const {
-    //   name,
-    //   description,
-    //   image,
-    //   attr1,
-    //   attr2,
-    //   attr3,
-    // } = this.state;
-
-    // const emptyStringInputs = [
-    //   name,
-    //   description,
-    //   image,
-    // ];
-
-    // const zeroInputs = [
-    //   attr1,
-    //   attr2,
-    //   attr3,
-    // ];
-
-    // zeroInputs.forEach((item) => {
-    //   this.setState({
-    //     [item]: 0,
-    //   });
-    // });
-
-    // emptyStringInputs.forEach((item) => {
-    //   this.setState({
-    //     [item]: '',
-    //   });
-    // });
-
-    // this.setState({
-    //   trunfo: true,
-    // });
-
-    this.setState({
-      name: '',
-      description: '',
-      image: '',
-      attr1: '0',
-      attr2: '0',
-      attr3: '0',
-      rare: 'normal',
-      trunfo: false,
-    });
+    const { trunfo } = this.state;
+    if (trunfo === true) {
+      this.setState({
+        name: '',
+        description: '',
+        image: '',
+        attr1: '0',
+        attr2: '0',
+        attr3: '0',
+        rare: 'normal',
+        trunfo: false,
+        hTrunfo: true,
+      });
+    } else {
+      this.setState({
+        name: '',
+        description: '',
+        image: '',
+        attr1: '0',
+        attr2: '0',
+        attr3: '0',
+        rare: 'normal',
+        trunfo: false,
+      });
+    }
   }
 
   render() {
@@ -127,6 +106,7 @@ class App extends React.Component {
       rare,
       trunfo,
       isDisabled,
+      hTrunfo,
     } = this.state;
     return (
       <div>
@@ -140,7 +120,7 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rare }
           cardTrunfo={ trunfo }
-          // hasTrunfo={  }
+          hasTrunfo={ hTrunfo }
           isSaveButtonDisabled={ isDisabled }
           onInputChange={ this.handleChange }
           onSaveButtonClick={ this.onSaveButtonClick }
