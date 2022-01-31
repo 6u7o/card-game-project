@@ -14,25 +14,57 @@ class App extends React.Component {
       attr2: '',
       attr3: '',
       rare: 'normal',
-      trunfo: '',
+      trunfo: false,
+      isDisabled: true,
     };
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    // console.log(target.value);
-    this.setState({
-      [name]: value,
+  validateInputs = () => {
+    const {
+      name,
+      description,
+      image,
+      rare,
+      attr1,
+      attr2,
+      attr3,
+    } = this.state;
+    let finalRes;
+    const inputs = [name, description, image, rare];
+    inputs.forEach((item) => {
+      if ((item.length) < 1) {
+        finalRes = true;
+      }
     });
-    // console.log('state:', this.state.name);
+    const maxAllAttr = 210;
+    const attrSum = Number(attr1) + Number(attr2) + Number(attr3);
+    const attrInputs = [attr1, attr2, attr3];
+    const maxAttr = 90;
+    attrInputs.forEach((item) => {
+      if (item < 0 || item > maxAttr || attrSum > maxAllAttr) {
+        finalRes = true;
+      }
+    });
+    this.setState({
+      isDisabled: finalRes,
+    });
+    console.log(attrSum);
   }
 
-  isSaveButtonDisabled = () => {
-
+  handleChange = ({ target }) => {
+    const { name, type } = target;
+    const value = type === 'checkbox' ? target.checked : target.value;
+    this.setState({ // é uma função assíncrona, por isso pode passar um param (func) para rodar depois que o setState atualizou o valor
+      [name]: value,
+    }, () => this.validateInputs());
   }
 
-  onSaveButtonClick = () => {
-
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    // this.setState({
+    //   isDisabled: true,
+    // });
+    // console.log('submeteu form');
   }
 
   render() {
@@ -45,6 +77,7 @@ class App extends React.Component {
       attr3,
       rare,
       trunfo,
+      isDisabled,
     } = this.state;
     return (
       <div>
@@ -59,7 +92,7 @@ class App extends React.Component {
           cardRare={ rare }
           cardTrunfo={ trunfo }
           // hasTrunfo={  }
-          isSaveButtonDisabled={ this.isSaveButtonDisabled }
+          isSaveButtonDisabled={ isDisabled }
           onInputChange={ this.handleChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
