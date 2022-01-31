@@ -16,6 +16,7 @@ class App extends React.Component {
       rare: 'normal',
       trunfo: false,
       isDisabled: true,
+      // cards: [],
     };
   }
 
@@ -45,10 +46,15 @@ class App extends React.Component {
         finalRes = true;
       }
     });
-    this.setState({
-      isDisabled: finalRes,
-    });
-    console.log(attrSum);
+    if (finalRes === true) {
+      this.setState({
+        isDisabled: true,
+      });
+    } else {
+      this.setState({
+        isDisabled: false,
+      });
+    }
   }
 
   handleChange = ({ target }) => {
@@ -61,10 +67,53 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    // this.setState({
-    //   isDisabled: true,
+    // const {
+    //   name,
+    //   description,
+    //   image,
+    //   attr1,
+    //   attr2,
+    //   attr3,
+    // } = this.state;
+
+    // const emptyStringInputs = [
+    //   name,
+    //   description,
+    //   image,
+    // ];
+
+    // const zeroInputs = [
+    //   attr1,
+    //   attr2,
+    //   attr3,
+    // ];
+
+    // zeroInputs.forEach((item) => {
+    //   this.setState({
+    //     [item]: 0,
+    //   });
     // });
-    // console.log('submeteu form');
+
+    // emptyStringInputs.forEach((item) => {
+    //   this.setState({
+    //     [item]: '',
+    //   });
+    // });
+
+    // this.setState({
+    //   trunfo: true,
+    // });
+
+    this.setState({
+      name: '',
+      description: '',
+      image: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
+      rare: 'normal',
+      trunfo: false,
+    });
   }
 
   render() {
