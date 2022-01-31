@@ -68,6 +68,21 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
+
+    // const {
+    //   name,
+    //   description,
+    //   image,
+    //   attr1,
+    //   attr2,
+    //   attr3,
+    //   rarermal,
+    //   trunfose,
+    //   isDisablede,
+    //   hTrunfose,
+    //   cards
+    // } = this.state;
+
     const { trunfo } = this.state;
     if (trunfo === true) {
       this.setState({
