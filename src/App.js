@@ -17,7 +17,7 @@ class App extends React.Component {
       trunfo: false,
       isDisabled: true,
       hTrunfo: false,
-      // cards: [],
+      cards: [],
     };
   }
 
@@ -66,24 +66,37 @@ class App extends React.Component {
     }, () => this.validateInputs());
   }
 
+  saveCard = (cardInfo) => {
+    this.setState(({ cards }) => ({
+      cards: [...cards, cardInfo],
+    })/* , () => this.addCardToList() */);
+  }
+
   onSaveButtonClick = (event) => {
     event.preventDefault();
-
-    // const {
-    //   name,
-    //   description,
-    //   image,
-    //   attr1,
-    //   attr2,
-    //   attr3,
-    //   rarermal,
-    //   trunfose,
-    //   isDisablede,
-    //   hTrunfose,
-    //   cards
-    // } = this.state;
-
-    const { trunfo } = this.state;
+    const {
+      name,
+      description,
+      image,
+      attr1,
+      attr2,
+      attr3,
+      rare,
+      trunfo,
+      isDisabled,
+    } = this.state;
+    const objByCard = {
+      nome: name,
+      decricao: description,
+      imagem: image,
+      atributo1: attr1,
+      atributo2: attr2,
+      atributo3: attr3,
+      raridade: rare,
+      desabilitado: isDisabled,
+      trunfoCard: trunfo,
+    };
+    this.saveCard(objByCard);
     if (trunfo === true) {
       this.setState({
         name: '',
@@ -108,9 +121,29 @@ class App extends React.Component {
         trunfo: false,
       });
     }
+    // this.addCardToList();
+  }
+
+  addCardToList = () => {
+    const { cards } = this.state;
+    return cards.map((item) => (
+      <Card
+        key={ item.nome }
+        cardName={ item.nome }
+        cardDescription={ item.decricao }
+        cardAttr1={ item.atributo1 }
+        cardAttr2={ item.atributo2 }
+        cardAttr3={ item.atributo3 }
+        cardImage={ item.imagem }
+        cardRare={ item.raridade }
+        cardTrunfo={ item.trunfoCard }
+      />
+    ));
   }
 
   render() {
+    // let cardSaved;
+
     const {
       name,
       description,
@@ -122,6 +155,7 @@ class App extends React.Component {
       trunfo,
       isDisabled,
       hTrunfo,
+      // cards,
     } = this.state;
     return (
       <div>
@@ -150,6 +184,10 @@ class App extends React.Component {
           cardRare={ rare }
           cardTrunfo={ trunfo }
         />
+        <div>
+          Todas cartas
+          {this.addCardToList()}
+        </div>
       </div>
     );
   }
