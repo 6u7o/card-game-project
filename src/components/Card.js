@@ -12,6 +12,8 @@ class Card extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      // notPreview,
+      // clickFunc,
     } = this.props;
 
     let ifSuper;
@@ -65,6 +67,15 @@ class Card extends React.Component {
           { cardRare }
         </p>
         { ifSuper }
+        {/* {notPreview ? (
+          <button
+            type="button"
+            data-testid="delete-button"
+            onClick={ clickFunc }
+          >
+            Excluir
+          </button>
+        ) : null} */}
       </div>
     );
   }
@@ -79,6 +90,8 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  // notPreview: PropTypes.bool.isRequired,
+  // clickFunc: PropTypes.func.isRequired,
 };
 
 export default Card;

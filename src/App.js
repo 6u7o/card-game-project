@@ -124,22 +124,47 @@ class App extends React.Component {
     // this.addCardToList();
   }
 
-  addCardToList = () => {
+  deleteCard = (name) => {
+    // console.log(name);
     const { cards } = this.state;
-    return cards.map((item) => (
-      <Card
-        key={ item.nome }
-        cardName={ item.nome }
-        cardDescription={ item.decricao }
-        cardAttr1={ item.atributo1 }
-        cardAttr2={ item.atributo2 }
-        cardAttr3={ item.atributo3 }
-        cardImage={ item.imagem }
-        cardRare={ item.raridade }
-        cardTrunfo={ item.trunfoCard }
-      />
-    ));
+    // console.log(cards);
+    const cardToDelete = cards.filter((item) => item.nome !== name);
+    this.setState({
+      cards: cardToDelete,
+    });
+    const superTrunfo = cardToDelete.some((item) => item.trunfo === true);
+    if (!superTrunfo) this.setState({ hTrunfo: false });
   }
+
+  // addCardToList = () => {
+  //   const { cards } = this.state;
+  //   // const bool = true;
+  //   return cards.map((item) => (
+  //     <div
+  //       key={ item.nome }
+  //     >
+  //       <Card
+  //         cardName={ item.nome }
+  //         cardDescription={ item.decricao }
+  //         cardAttr1={ item.atributo1 }
+  //         cardAttr2={ item.atributo2 }
+  //         cardAttr3={ item.atributo3 }
+  //         cardImage={ item.imagem }
+  //         cardRare={ item.raridade }
+  //         cardTrunfo={ item.trunfoCard }
+  //         // notPreview={ bool }
+  //         // clickFunc={ this.deleteCard }
+  //       />
+  //       <button
+  //         type="button"
+  //         data-testid="delete-button"
+  //         onClick={ () => this.deleteCard(item.nome) }
+  //       >
+  //         Excluir
+  //       </button>
+  //     </div>
+  //   ));
+  // }
 
   render() {
     // let cardSaved;
@@ -155,8 +180,9 @@ class App extends React.Component {
       trunfo,
       isDisabled,
       hTrunfo,
-      // cards,
+      cards,
     } = this.state;
+    const bool2 = false;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -183,10 +209,36 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rare }
           cardTrunfo={ trunfo }
+          notPreview={ bool2 }
         />
         <div>
           Todas cartas
-          {this.addCardToList()}
+          {/* {cards ? this.addCardToList() : null} */}
+          {cards.map((item) => (
+            <div
+              key={ item.nome }
+            >
+              <Card
+                cardName={ item.nome }
+                cardDescription={ item.decricao }
+                cardAttr1={ item.atributo1 }
+                cardAttr2={ item.atributo2 }
+                cardAttr3={ item.atributo3 }
+                cardImage={ item.imagem }
+                cardRare={ item.raridade }
+                cardTrunfo={ item.trunfoCard }
+                // notPreview={ bool }
+                // clickFunc={ this.deleteCard }
+              />
+              <button
+                type="button"
+                data-testid="delete-button"
+                onClick={ () => this.deleteCard(item.nome) }
+              >
+                Excluir
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     );
